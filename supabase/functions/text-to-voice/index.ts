@@ -8,17 +8,17 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 import { createClient } from 'jsr:@supabase/supabase-js@2.48.1'
 import { corsHeaders } from '../_shared/cors.ts';
 
-// const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
-// const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY')!;
-// const ELEVEN_LABS_API_KEY = Deno.env.get('ELEVEN_LABS_API_KEY')!;
-// const ELEVEN_LABS_VOICE_ID = Deno.env.get('ELEVEN_LABS_VOICE_ID') || 'x5IDPSl4ZUbhosMmVFTk'; // Default voice
-// const BUCKET_NAME = Deno.env.get('BUCKET_NAME')!;
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY')!;
+const ELEVEN_LABS_API_KEY = Deno.env.get('ELEVEN_LABS_API_KEY')!;
+const ELEVEN_LABS_VOICE_ID = Deno.env.get('ELEVEN_LABS_VOICE_ID') || 'x5IDPSl4ZUbhosMmVFTk'; // Default voice
+const BUCKET_NAME = Deno.env.get('BUCKET_NAME')!;
 
-const SUPABASE_URL='https://xbipbbvhrlfiiuapyfjk.supabase.co'
-const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhiaXBiYnZocmxmaWl1YXB5ZmprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk2Njc1NzAsImV4cCI6MjA1NTI0MzU3MH0.wVOQxKHhP4hBB3625HCPQCvnKRY3vt_jrZQh9qCV7NU'
-const ELEVEN_LABS_API_KEY = 'sk_2ceb5d34b254b252211d3ba698add8874168cfdd29995746'
-const ELEVEN_LABS_VOICE_ID ='x5IDPSl4ZUbhosMmVFTk'
-const BUCKET_NAME='textvoi'
+// const SUPABASE_URL='https://xbipbbvhrlfiiuapyfjk.supabase.co'
+// const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhiaXBiYnZocmxmaWl1YXB5ZmprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk2Njc1NzAsImV4cCI6MjA1NTI0MzU3MH0.wVOQxKHhP4hBB3625HCPQCvnKRY3vt_jrZQh9qCV7NU'
+// const ELEVEN_LABS_API_KEY = 'sk_2ceb5d34b254b252211d3ba698add8874168cfdd29995746'
+// const ELEVEN_LABS_VOICE_ID ='x5IDPSl4ZUbhosMmVFTk'
+// const BUCKET_NAME='textvoi'
 
 const supabase = createClient(
   SUPABASE_URL,
@@ -75,7 +75,7 @@ Deno.serve(async (req) => {
       const { data: publicTextUrl } = supabase.storage.from(BUCKET_NAME).getPublicUrl(row.bucket_key_text);
 
       console.log('📌 - index.ts:77 - Deno.serve - publicTextUrl:', publicTextUrl.publicUrl);
-      
+
       const { data: dataDownload, error } = await supabase.storage
         .from(BUCKET_NAME)
         .download(row.bucket_key_text);
